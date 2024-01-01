@@ -1,0 +1,587 @@
+/* RESET */
+* {
+  margin: 0;
+  padding: 0;
+  /* we want total including the padding to be the same. */
+  box-sizing: border-box;
+}
+
+button {
+  border: initial;
+  background-color: initial;
+  /* buttons don't automatically inherit font-family */
+  color: inherit;
+  font: inherit;
+  outline: none; /*Make usre there is a visual indicator for focus state*/
+}
+
+/* KEYFRAMES ANIMATION */
+/* we define animation by @ */
+@keyframes fade-in-from-top {
+  /* At the start of animation */
+  0% {
+    opacity: 0;
+    transform: translateY(-3px);
+  }
+
+  /* At the end of animation */
+  100% {
+    opacity: 1;
+    transform: translateY(0px);
+  }
+}
+
+@keyframes fade-in-from-left {
+  /* At the start of animation */
+  0% {
+    opacity: 0;
+    /* x because we are transition from left to right */
+    transform: translateX(-50px);
+  }
+
+  /* At the end of animation */
+  100% {
+    opacity: 1;
+    transform: translateX(0px);
+  }
+}
+
+@keyframes fade-in-from-right {
+  /* At the start of animation */
+  0% {
+    opacity: 0;
+    /* x because we are transition from left to right */
+    transform: translateX(50px);
+  }
+
+  /* At the end of animation */
+  100% {
+    opacity: 1;
+    transform: translateX(0px);
+  }
+}
+
+@keyframes fade-in {
+  0% {
+    opacity: 0;
+  }
+  /* You could use 50% but rarely done in rl */
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes make-smaller {
+  0% {
+    height: 100%;
+    width: 100%;
+  }
+  /* You could use 50% but rarely done in rl */
+  100% {
+    height: 75%;
+    width: 78%;
+  }
+}
+
+/* BASE STYLES */
+.app {
+  font-family: "Lato", sans-serif;
+  font-size: 15px;
+  color: #f3f4f6;
+  width: 100vw;
+  height: 100vh;
+}
+
+.app__container {
+  /* 55px comes from the height of the header. */
+  height: calc(100vh - 55px);
+  /*  */
+  display: flex;
+}
+
+/* STYLES */
+
+.header {
+  background-image: linear-gradient(to left, #553c9a, #b393d3);
+
+  height: 55px;
+  display: flex;
+}
+
+.logo {
+  /* center to prevent logo from stretching to header*/
+  align-self: center;
+  margin-left: 20px;
+  margin-right: 30px;
+  animation: fade-in-from-top 0.5s ease-in-out;
+}
+
+.dd-toggle {
+  color: rgba(255, 255, 255, 0.7);
+  padding: 0 15px;
+  cursor: pointer;
+  /* not in the hover state. in the normal state */
+  transition: all 0.4s;
+}
+
+.dd-toggle:hover {
+  color: #fafaf9;
+  background-color: rgba(255, 255, 255, 0.07);
+}
+
+/* For keyboard users. This will make sure that the focus state is the same as the hover state. */
+.dd-toggle:focus {
+  color: #fafaf9;
+  background-color: rgba(255, 255, 255, 0.07);
+}
+
+/* margin-left: auto will push the element to the right. */
+.dd-toggle:nth-of-type(4) {
+  margin-left: auto;
+}
+
+/* last-child will push the element to the right. */
+.dd-toggle:last-child {
+  /* makes flex container */
+  display: flex;
+  align-items: center;
+}
+
+.dd-toggle__icon {
+}
+
+.dd-toggle__img {
+  height: 30px;
+  width: 30px;
+  object-fit: cover;
+  border-radius: 50%;
+  margin-right: 7px;
+}
+
+.dd-toggle__text {
+}
+
+/* == FLEX ITEMS FOR  app__container ==================*/
+
+/* -- SIDEBAR -------------------------------------- */
+.sidebar {
+  background-color: #10171a;
+  /* It's possible to set widths for flex items */
+  width: 75px;
+  display: flex;
+  flex-direction: column;
+}
+
+.menu {
+}
+
+.menu__button {
+  padding: 19px 0;
+  color: rgba(255, 255, 255, 0.4);
+  display: flex;
+  flex-direction: column;
+  /* `width: 100%` to align items to center */
+  align-items: center;
+  width: 100%;
+  /* transition in NORMAL STATE, not pseudo STATE */
+  transition: all 0.4s;
+  animation: fade-in-from-left 0.5s;
+}
+
+.menu__button--active {
+  background-color: #2b363b;
+  color: fff;
+  /* relative for blur bars */
+  position: relative;
+}
+/* pseudo STATE (:) */
+.menu__button:hover {
+  background-color: #2b363b;
+  color: fff;
+  cursor: pointer;
+}
+
+.menu__button:focus {
+  background-color: #2b363b;
+  color: fff;
+  cursor: pointer;
+}
+
+/* pseudo CLASS (::) for html element(blue bar */
+.menu__button--active::before {
+  content: "";
+  width: 3px;
+  height: 100%;
+  background-color: #375bb6;
+  position: absolute;
+  /* 0 pixels left from the active button */
+  left: 0;
+  top: 0;
+}
+
+.menu__icon {
+  font-size: 18px;
+  margin-bottom: 3px;
+}
+
+.menu__text {
+  font-weight: 500;
+  font-size: 12px;
+}
+
+.footer {
+  margin-top: auto;
+  margin-bottom: 40px;
+  /* to rotate element, use transform */
+  transform: rotate(-90deg);
+}
+
+.copyright {
+  color: rgba(255, 255, 255, 0.2);
+  font-size: 11px;
+  /* white-space:nowrap to unwrap the texts. */
+  white-space: nowrap;
+}
+
+/* ------ PANEL -------------------------------- */
+
+.panel {
+  background-color: #2b363c;
+  width: 350px;
+  padding: 15px 31px;
+}
+
+.panel__top {
+  display: flex;
+  /* adds as much space in between as possible */
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid #4b5155;
+  padding: 12px;
+}
+
+.first-heading {
+  font-size: 18px;
+  /* default font weight is too heavy. reduce to 400 */
+  font-weight: 400;
+}
+
+.panel__collapse-icon {
+  color: #6b6276;
+  cursor: pointer;
+}
+
+.panel__images {
+  padding: 25px 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.panel__img {
+  width: 140px;
+  height: 140px;
+  /* to prevent strestching */
+  object-fit: cover;
+  border-radius: 7px;
+  transition: all 0.27s;
+  animation: fade-in 1s;
+}
+.panel__img:nth-child(2) {
+  animation: fade-in 1s 0.1s backwards;
+}
+.panel__img:nth-child(3) {
+  animation: fade-in 1s 0.2s backwards;
+}
+.panel__img:nth-child(4) {
+  animation: fade-in 1s 0.3s backwards;
+}
+.panel__img:nth-child(5) {
+  animation: fade-in 1s 0.4s backwards;
+}
+
+.panel__img:hover,
+.panel__img:focus {
+  transform: scale(1.07);
+}
+
+.panel__btn {
+  width: 140px;
+  height: 140px;
+  background-color: #333e44;
+  border-radius: 7px;
+  cursor: pointer;
+  transition: all 0.27s;
+  animation: fade-in 1s 0.5s backwards;
+}
+
+/* multiple selectors with the same property. */
+.panel__btn:hover,
+.panel__btn:focus {
+  background-color: #4b5155;
+}
+
+.panel__upload-icon {
+  font-size: 25px;
+  color: #21292d;
+}
+
+/* ------ MAIN ------------------------------------ */
+.main {
+  background-color: #edf1f3;
+  flex: 1;
+}
+
+.info-bar {
+  height: 50px;
+  background-color: #ffffff;
+  border-bottom: 1px solid #d6dde1;
+  padding: 0 30px;
+  display: flex;
+  /* default is set to stretch. */
+  align-items: center;
+  justify-content: space-between;
+}
+
+.breadcrumbs {
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  font-size: 12px;
+}
+
+.breadcrumbs__link {
+  color: #a6adb1;
+  text-decoration: none;
+}
+
+.breadcrumbs__icon {
+  color: #a6adb1;
+  margin: 0 13px;
+}
+
+.breadcrumbs__name {
+  color: #2e3335;
+  font-weight: 500;
+}
+
+.button {
+  background-color: #375bb6;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  padding: 8px 20px;
+  cursor: pointer;
+  border-radius: 500px;
+  transition: all 0.4s;
+}
+
+.button:hover,
+.button:focus {
+  background-color: #26438d;
+}
+
+/* ====================================================*/
+
+.artboard {
+  height: calc(100vh - 50px - 55px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: -25px;
+  column-gap: 20px;
+}
+
+.canvas {
+  height: 57.5vh;
+  width: 48.6vw;
+  position: relative;
+  border: 1px solid #fff;
+  border-radius: 3px;
+}
+
+.canvas__bg-img {
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+  opacity: 0.15;
+}
+/* This goes on top of background image. */
+.canvas__fg-img {
+  height: 75%;
+  width: 78%;
+  object-fit: cover;
+  border-radius: 3px;
+  /* You take it out of normal flow by setting it to absolute. */
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border: 1px solid #fff;
+  cursor: grab;
+  animation: make-smaller 1s 0.2s;
+}
+
+.canvas__circle {
+  height: 15px;
+  width: 15px;
+  border-radius: 50px;
+  background-color: #fff;
+  position: absolute;
+  animation: fade-in 1s 1s backwards;
+}
+
+.canvas__circle:nth-of-type(1) {
+  top: 11.5%;
+  left: 10.4%;
+  cursor: nw-resize;
+}
+.canvas__circle:nth-of-type(2) {
+  top: 11.5%;
+  right: 10.4%;
+  cursor: ne-resize;
+}
+.canvas__circle:nth-of-type(3) {
+  bottom: 11.5%;
+  left: 10.4%;
+  cursor: sw-resize;
+}
+.canvas__circle:nth-of-type(4) {
+  bottom: 11.5%;
+  right: 10.4%;
+  cursor: se-resize;
+}
+
+.tools {
+  height: 57.5vh;
+  display: flex;
+  flex-direction: column;
+  row-gap: 5px;
+  animation: fade-in-from-right 0.27s;
+}
+
+.tool {
+  background-color: #e1e6e9;
+  height: 44px;
+  width: 44px;
+  border-radius: 8px;
+  color: #404446;
+  cursor: pointer;
+  transition: all 0.4s;
+}
+
+.tool--active {
+  background-color: #2b363b;
+  color: white;
+}
+
+.tool:last-child {
+  margin-top: auto;
+}
+
+.tool:hover,
+.tool:focus {
+  background-color: #2b363b;
+  color: white;
+}
+
+.tool__icon {
+}
+
+/* ==================================================== */
+/* MEDIA QUERIES */
+@media (max-width: 1200px) {
+  .app__container {
+    height: initial;
+    /* min-height */
+    min-height: 100vh;
+  }
+  .panel {
+    display: none;
+  }
+  .canvas {
+    width: 67vw;
+  }
+}
+
+@media (max-width: 1000px) {
+  .sidebar {
+    display: none;
+  }
+  .artboard {
+    padding: 50px 20px;
+    margin-top: 0;
+    height: initial;
+  }
+  .canvas {
+    width: 100%;
+    height: 500px;
+  }
+  .tools {
+    height: 500px;
+  }
+}
+
+@media (max-width: 580px) {
+  .dd-toggle:nth-of-type(1),
+  .dd-toggle:nth-of-type(2),
+  .dd-toggle:nth-of-type(3) {
+    display: none;
+  }
+
+  .artboard {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .canvas {
+    order: 2;
+  }
+
+  .canvas__circle:nth-of-type(1) {
+    top: 11.5%;
+    left: 9.8%;
+  }
+
+  .canvas__circle:nth-of-type(2) {
+    top: 11.5%;
+    right: 9.8%;
+  }
+
+  .canvas__circle:nth-of-type(3) {
+    bottom: 11.5%;
+    left: 9.8%;
+  }
+
+  .canvas__circle:nth-of-type(4) {
+    bottom: 11.5%;
+    right: 9.8%;
+  }
+  .tools {
+    flex-direction: row;
+    column-gap: 5px;
+    order: 1;
+    height: initial;
+    margin-bottom: 15px;
+  }
+  .tool:last-child {
+    margin: 0;
+  }
+}
+
+@media (max-width: 480px) {
+  .dd-toggle:nth-of-type(4),
+  .dd-toggle:nth-of-type(5) {
+    display: none;
+  }
+
+  .header {
+    justify-content: space-between;
+  }
+  .breadcrumbs__link,
+  .breadcrumbs__icon {
+    display: none;
+  }
+
+  .canvas {
+    height: 400px;
+  }
+}
